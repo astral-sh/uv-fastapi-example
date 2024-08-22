@@ -1,0 +1,13 @@
+[project]
+name = "app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.112.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
