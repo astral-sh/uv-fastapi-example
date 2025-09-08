@@ -1,9 +1,41 @@
 [project]
 name = "uv-fastapi-example"
 version = "0.1.0"
-description = "Add your description here"
+description = "FastAPI project"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi[standard]>=0.112.1",
+    "fastapi[standard]",
 ]
+
+[dependency-groups]
+ci = [
+    "pyrefly",
+    "types-requests",
+    "types-tqdm",
+]
+
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pyrefly]
+python-version = "3.12"
+project-includes = [
+    "src/**/*", 
+    "tests/**/*",
+]
+project-excludes = [
+    "**/*venv/**/*",
+    "**/__pycache__",
+    "**/notebooks/",
+]
+
+# Add search path to help pyrefly find app.* imports
+# search-path = ["."]
+
+# this is mypy default
+untyped-def-behavior = "skip-and-infer-return-any"
+
+[tool.setuptools]
+packages = ["src"]

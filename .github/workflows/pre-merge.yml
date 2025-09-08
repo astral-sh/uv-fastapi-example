@@ -1,0 +1,23 @@
+name: Checks to run before merging a PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+
+jobs:
+
+  # check that the lock file matches with what's declared in pyproject.toml
+  lock_file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: uv lock --locked
+  type_consistency:
+    runs-on: ubuntu-latest
+    needs: [lock_file]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: uv run --group ci pyrefly check src

@@ -1,0 +1,16 @@
+name: "install uv and package"
+description: "Installs uv and the core deps (not extras)"
+runs:
+  using: composite
+  steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: ".python-version"
+
+    - name: Install the project
+      shell: bash
+      run: uv sync
