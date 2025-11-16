@@ -4,11 +4,14 @@ FROM python:3.12-slim-bullseye
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 # Copy the application into the container.
-COPY . /app
+COPY . /server
 
 # Install the application dependencies.
-WORKDIR /app
+WORKDIR /server
 RUN uv sync --locked --no-cache
 
+# Add created venv binaries to PATH
+ENV PATH="/server/.venv/bin/:$PATH"
+
 # Run the application.
-CMD ["/app/.venv/bin/fastapi", "run", "app/main.py", "--port", "80"]
+CMD ["fastapi", "run", "app/main.py", "--port", "80"]
